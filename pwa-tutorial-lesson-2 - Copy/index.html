@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PerLoc</title>
+  <!-- materialize icons, css & js -->
+  <link type="text/css" href="/css/materialize.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" href="/css/styles.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="/icons/icon/icon 96x96.png">
+  <meta name="apple-mobile-web-app-status-bar" content="#7feb26">
+  <meta name="theme-color" content="#afeb87">
+</head>
+<body class="grey lighten-4">
+
+  <!-- top nav -->
+  <nav class="z-depth-0">
+    <div class="nav-wrapper container">
+      <a href="/">Per<span>Loc</span></a>
+      <span class="right grey-text text-darken-1">
+        <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
+      </span>
+    </div>
+  </nav>
+
+  <!-- side nav -->
+  <ul id="side-menu" class="sidenav side-menu">
+    <li><a class="subheader">PerLoc</a></li>
+    <li><a href="/" class="waves-effect">Home</a></li>
+    <li><a href="/pages/geolocation.html" class="waves-effect"> google maps</a>
+    </li>
+  </ul>
+
+  <!-- locations -->
+  <div class="location container grey-text text-darken-1">
+    <h6 class="center">PerLocations</h6>
+    
+    </div>
+    
+
+  <div class="center">
+    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+
+  <!-- add geolocation side nav -->
+  <div id="side-form" class="sidenav side-form">
+    <form class="add-location container section">
+      <h6 >New location</h6>
+      <div class="divider"></div>
+      <div class="input-field">
+        <input placeholder="e.g. home, work, mall" id="titlelocation" type="text" class="validate">
+        <label for="title">location title</label>
+      </div>
+      <div class="input-field">
+        <input placeholder="e.g. new york, los angeles, amsterdam" id="titledescription" type="text" class="validate">
+        <label for="place">place</label>
+      </div>
+     <!-- Add langitude + longitude -->
+      <div id="container">  <div id="button1" class="button1" align="center"> 
+      <button type="button" onclick="getLocation()">get current location</button>
+          </div>
+          
+      <div class="result" id="result"> 
+      <p id="demo"></p>
+
+      <script> 
+      var x = document.getElementById("demo")
+
+      function getLocation() {
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+              
+              x.innerHTML = "geolocation is not supported by this browser.";
+          }
+      }
+
+      function showPosition(position) {
+          x.innerHTML = "latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;    
+      }
+          
+      function showError(error) {
+          switch(error.code) {
+              case error.PERMISSION_DENIED:
+                  X.innerHTML = "User denied the request for geolocation."
+                  break;
+              case error.POSITION_UNAVAILABLE:
+                  X.innerHTML = "Location information is unavailable."
+                  break;
+              case error.TIMEOUT:
+                  X.innerHTML = "The request to get user location timed out."
+                  break;
+              case error.UNKNOWN_ERROR:
+                  X.innerHTML = "An unknown error occured"
+                  break;
+          }  
+      }      
+      </script>
+          </div>
+          </div> 
+      <div class="input-field center">
+        <button class="btn-small">Add</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyBHL4NLqBKkGqwT4hkoWWb1c70rhrxYcJg",
+      authDomain: "perloc-pwa-215ff.firebaseapp.com",
+      databaseURL: "https://perloc-pwa-215ff.firebaseio.com",
+      projectId: "perloc-pwa-215ff",
+      storageBucket: "perloc-pwa-215ff.appspot.com",
+      messagingSenderId: "960659754177",
+      appId: "1:960659754177:web:ad60389d37b94c70781840",
+      measurementId: "G-3Q6KNJK0S2"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const db = firebase.firestore();
+  </script>
+  <script src="/js/app.js"></script>
+  <script src="/js/db.js"></script>
+  <script src="/js/ui.js"></script>
+</body>
+</html>
